@@ -3,16 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\Gradovi;
-use frontend\models\GradoviSearch;
+use frontend\models\Korisnici;
+use frontend\models\KorisniciSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * GradoviController implements the CRUD actions for Gradovi model.
+ * KorisniciController implements the CRUD actions for Korisnici model.
  */
-class GradoviController extends Controller
+class KorisniciController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class GradoviController extends Controller
     }
 
     /**
-     * Lists all Gradovi models.
+     * Lists all Korisnici models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new GradoviSearch();
+        $searchModel = new KorisniciSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class GradoviController extends Controller
     }
 
     /**
-     * Displays a single Gradovi model.
+     * Displays a single Korisnici model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class GradoviController extends Controller
     }
 
     /**
-     * Creates a new Gradovi model.
+     * Creates a new Korisnici model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Gradovi();
+        $model = new Korisnici();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +76,7 @@ class GradoviController extends Controller
     }
 
     /**
-     * Updates an existing Gradovi model.
+     * Updates an existing Korisnici model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +96,7 @@ class GradoviController extends Controller
     }
 
     /**
-     * Deletes an existing Gradovi model.
+     * Deletes an existing Korisnici model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,27 +110,18 @@ class GradoviController extends Controller
     }
 
     /**
-     * Finds the Gradovi model based on its primary key value.
+     * Finds the Korisnici model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Gradovi the loaded model
+     * @return Korisnici the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Gradovi::findOne($id)) !== null) {
+        if (($model = Korisnici::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-    
-   public function actionPrvaDvaGrada() {
-        $searchModel = new GradoviSearch();
-        $dataProvider = $searchModel->prvaDvaGrada(Yii::$app->request->queryParams);
-
-        return $this->render('prva_dva_grada', [            
-            'dataProvider' => $dataProvider,
-        ]);
-   } 
 }
