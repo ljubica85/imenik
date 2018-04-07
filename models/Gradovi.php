@@ -12,6 +12,8 @@ use Yii;
  * @property string $oznaka
  * @property int $pozivni_br
  * @property int $postanski_br
+ *
+ * @property Korisnici[] $korisnicis
  */
 class Gradovi extends \yii\db\ActiveRecord
 {
@@ -48,5 +50,13 @@ class Gradovi extends \yii\db\ActiveRecord
             'pozivni_br' => 'Pozivni Br',
             'postanski_br' => 'Postanski Br',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getKorisnicis()
+    {
+        return $this->hasMany(Korisnici::className(), ['gradovi_id' => 'id']);
     }
 }

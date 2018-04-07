@@ -12,9 +12,13 @@ use Yii;
  * @property string $prezime
  * @property int $vrsta_id
  * @property int $adresa_id
- * @property int $broj
+ * @property string $broj
  * @property int $gradovi_id
  * @property string $telefon
+ *
+ * @property Vrsta $vrsta
+ * @property Adresa $adresa
+ * @property Gradovi $gradovi
  */
 class Korisnici extends \yii\db\ActiveRecord
 {
@@ -33,9 +37,12 @@ class Korisnici extends \yii\db\ActiveRecord
     {
         return [
             [['ime', 'prezime', 'vrsta_id', 'adresa_id', 'broj', 'gradovi_id', 'telefon'], 'required'],
-            [['vrsta_id', 'adresa_id', 'broj', 'gradovi_id'], 'integer'],
+            [['vrsta_id', 'adresa_id', 'gradovi_id'], 'integer'],
             [['ime', 'prezime'], 'string', 'max' => 50],
-            [['telefon'], 'string', 'max' => 20],
+            [['broj', 'telefon'], 'string', 'max' => 20],
+            [['vrsta_id'], 'exist', 'skipOnError' => true, 'targetClass' => Vrsta::className(), 'targetAttribute' => ['vrsta_id' => 'id']],
+            [['adresa_id'], 'exist', 'skipOnError' => true, 'targetClass' => Adresa::className(), 'targetAttribute' => ['adresa_id' => 'id']],
+            [['gradovi_id'], 'exist', 'skipOnError' => true, 'targetClass' => Gradovi::className(), 'targetAttribute' => ['gradovi_id' => 'id']],
         ];
     }
 
@@ -54,5 +61,29 @@ class Korisnici extends \yii\db\ActiveRecord
             'gradovi_id' => 'Gradovi ID',
             'telefon' => 'Telefon',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getVrsta()
+    {
+        return $this->hasOne(Vrsta::className(), ['id' => 'vrsta_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAdresa()
+    {
+        return $this->hasOne(Adresa::className(), ['id' => 'adresa_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGradovi()
+    {
+        return $this->hasOne(Gradovi::className(), ['id' => 'gradovi_id']);
     }
 }

@@ -9,6 +9,8 @@ use Yii;
  *
  * @property int $id
  * @property string $ime
+ *
+ * @property Korisnici[] $korisnicis
  */
 class Vrsta extends \yii\db\ActiveRecord
 {
@@ -40,5 +42,13 @@ class Vrsta extends \yii\db\ActiveRecord
             'id' => 'ID',
             'ime' => 'Ime',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getKorisnicis()
+    {
+        return $this->hasMany(Korisnici::className(), ['vrsta_id' => 'id']);
     }
 }

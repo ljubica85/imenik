@@ -5,12 +5,12 @@ namespace frontend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\Gradovi;
+use frontend\models\Korisnici;
 
 /**
- * GradoviSearch represents the model behind the search form of `frontend\models\Gradovi`.
+ * KorisniciSearch represents the model behind the search form of `frontend\models\Korisnici`.
  */
-class GradoviSearch extends Gradovi
+class KorisniciSearch extends Korisnici
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class GradoviSearch extends Gradovi
     public function rules()
     {
         return [
-            [['id', 'pozivni_br', 'postanski_br'], 'integer'],
-            [['ime', 'oznaka'], 'safe'],
+            [['id', 'vrsta_id', 'adresa_id', 'gradovi_id'], 'integer'],
+            [['ime', 'prezime', 'broj', 'telefon'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class GradoviSearch extends Gradovi
      */
     public function search($params)
     {
-        $query = Gradovi::find();
+        $query = Korisnici::find();
 
         // add conditions that should always apply here
 
@@ -60,34 +60,15 @@ class GradoviSearch extends Gradovi
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'pozivni_br' => $this->pozivni_br,
-            'postanski_br' => $this->postanski_br,
+            'vrsta_id' => $this->vrsta_id,
+            'adresa_id' => $this->adresa_id,
+            'gradovi_id' => $this->gradovi_id,
         ]);
 
         $query->andFilterWhere(['like', 'ime', $this->ime])
-            ->andFilterWhere(['like', 'oznaka', $this->oznaka]);
-
-        return $dataProvider;
-    }
-    
-    public function prvaDvaGrada($params) {
-        
-        $query = Gradovi::find()->orderBy("id");
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 2,
-             ],
-        ]);
-
-        $this->load($params);
-
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
+            ->andFilterWhere(['like', 'prezime', $this->prezime])
+            ->andFilterWhere(['like', 'broj', $this->broj])
+            ->andFilterWhere(['like', 'telefon', $this->telefon]);
 
         return $dataProvider;
     }
