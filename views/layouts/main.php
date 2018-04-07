@@ -39,6 +39,15 @@ AppAsset::register($this);
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'About', 'url' => ['/site/about']],
         ['label' => 'Contact', 'url' => ['/site/contact']],
+        $menuItems[] =  ['label' => 'Meni', 
+            'items' => [                
+                ['label' => 'adrese', 'url' => ['/adresa/index']],                
+                ['label' => 'gradovi', 'url' => ['/gradovi/index']],                
+                ['label' => 'korisnici', 'url' => ['/korisnici/index']],                    
+                ['label' => 'vrste', 'url' => ['/vrsta/index']],
+                ['label' => 'prva dva grada', 'url' => ['/gradovi/prva-dva-grada']],
+            ],
+        ],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
