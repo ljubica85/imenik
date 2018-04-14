@@ -124,4 +124,13 @@ class AdresaController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+		
+	public function actionPrveDveAdrese(){
+		$searchModel = new AdresaSearch();
+		$dataProvider = $searchModel->prveDveAdrese(Yii::$app->request->queryParams);
+		
+		return $this->render('prve_dve_adrese',[
+			'dataProvider'=>$dataProvider,
+			]);
+	}
 }
