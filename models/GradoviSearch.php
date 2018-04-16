@@ -91,4 +91,24 @@ class GradoviSearch extends Gradovi
 
         return $dataProvider;
     }
+    
+    public function vratiGradPodaci($params) {
+        
+        
+        $query = Gradovi::find();                
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,            
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        return $dataProvider;
+    }
 }

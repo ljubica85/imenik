@@ -46,7 +46,10 @@ AppAsset::register($this);
                 ['label' => 'korisnici', 'url' => ['/korisnici/index']],                    
                 ['label' => 'vrste', 'url' => ['/vrsta/index']],
                 ['label' => 'prva dva grada', 'url' => ['/gradovi/prva-dva-grada']],
-				['label' => 'prve dve adrese', 'url' => ['/adresa/prve-dve-adrese']],
+                ['label' => 'prve dve adrese', 'url' => ['/adresa/prve-dve-adrese']],
+                ['label' => 'bootstrap_tabele', 'url' => ['/gradovi/index2']],
+                
+				
             ],
         ],
     ];

@@ -43,6 +43,16 @@ class GradoviController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    
+    public function actionIndex2() {
+        $searchModel = new GradoviSearch();
+        $dataProvider = $searchModel->vratiGradPodaci(Yii::$app->request->queryParams);
+
+        return $this->render('../gradovi2/bootstrap_tabela', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
      * Displays a single Gradovi model.
