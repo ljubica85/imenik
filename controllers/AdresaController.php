@@ -43,6 +43,16 @@ class AdresaController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+	
+	public function actionIndex2() {
+        $searchModel = new AdresaSearch();
+        $dataProvider = $searchModel->vratiAdresuPodaci(Yii::$app->request->queryParams);
+
+        return $this->render('../adresa2/bootstrap_tabela', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
      * Displays a single Adresa model.
