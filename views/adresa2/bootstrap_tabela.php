@@ -4,12 +4,11 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel frontend\models\GradoviSearch */
+/* @var $searchModel frontend\models\AdresaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-/*$this->title = 'Gradovis';
+$this->title = 'Adresas';
 $this->params['breadcrumbs'][] = $this->title;
-*/
 ?>
 
 <?php  
@@ -17,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 
-<div class="gradovi-index">
+<div class="adresa-index">
     
     
     <h2> Tabela 1</h2>
@@ -26,9 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
       <tr>
         <th>Id</th>  
         <th>Ime</th>
-        <th>Oznaka</th>
-        <th>Pozivni broj</th>
-        <th>Postanski broj</th>
       </tr>
     </thead>
     <tbody>
@@ -54,8 +50,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <thead>
       <tr>        
         <th>Ime</th>
-        <th>Oznaka</th>        
-        <th>Postanski broj</th>
       </tr>
     </thead>
     <tbody>
@@ -63,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
         foreach ($data as $v) {
             echo '<tr>';
             for ($i=0; $i<count($v); $i++)  {                               
-                echo '<td>'.$v['ime'].'</td><td>'.$v['oznaka'].'</td><td>'.$v['postanski_br'].'</td>'; 
+                echo '<td>'.$v['ime'].'</td>'; 
             }            
             echo '</tr>';
         }
