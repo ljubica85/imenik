@@ -18,8 +18,9 @@ class KorisniciSearch extends Korisnici
     public function rules()
     {
         return [
-            [['id', 'vrsta_id', 'adresa_id', 'gradovi_id'], 'integer'],
-            [['ime', 'prezime', 'broj', 'telefon'], 'safe'],
+//            [['id', 'vrsta_id', 'adresa_id', 'gradovi_id'], 'integer'],
+            [['id', 'adresa_id', 'gradovi_id'], 'integer'],
+            [['ime', 'prezime', 'broj', 'telefon', 'vrsta_id'], 'safe'],
         ];
     }
 
@@ -42,6 +43,7 @@ class KorisniciSearch extends Korisnici
     public function search($params)
     {
         $query = Korisnici::find();
+        $query->joinWith('vrsta');
 
         // add conditions that should always apply here
 
@@ -60,7 +62,7 @@ class KorisniciSearch extends Korisnici
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'vrsta_id' => $this->vrsta_id,
+//            'vrsta_id' => $this->vrsta_id,
             'adresa_id' => $this->adresa_id,
             'gradovi_id' => $this->gradovi_id,
         ]);
@@ -68,7 +70,8 @@ class KorisniciSearch extends Korisnici
         $query->andFilterWhere(['like', 'ime', $this->ime])
             ->andFilterWhere(['like', 'prezime', $this->prezime])
             ->andFilterWhere(['like', 'broj', $this->broj])
-            ->andFilterWhere(['like', 'telefon', $this->telefon]);
+            ->andFilterWhere(['like', 'telefon', $this->telefon])
+            ->andFilterWhere(['like', 'vrsta.ime', $this->vrsta_id]);
 
         return $dataProvider;
     }
