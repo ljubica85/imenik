@@ -26,21 +26,22 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'ime',
-            'prezime',
+            // 'ime',
+            // 'prezime',
             // 'vrsta_id',
-            [
-            'label' => 'Vrsta',
+			'fullname',
+			[
+			'label' => 'Vrsta',
             'attribute'=>'vrsta_id',
-            'value'=>'vrsta.ime',                
-            ], 
-            //'adresa_id',
+            'value'=>'vrsta.ime'
+            ],
+			//'adresa_id',
             [
             'label' => 'Adresa',
             'attribute'=>'adresa_id',
             'value'=>'adresa.ime',                
             ],
-			//'broj',
+			'broj',
             //'gradovi_id',
             //'telefon',
 

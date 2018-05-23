@@ -12,6 +12,7 @@ use frontend\models\Korisnici;
  */
 class KorisniciSearch extends Korisnici
 {
+	public $fullName;
     /**
      * @inheritdoc
      */
@@ -20,7 +21,7 @@ class KorisniciSearch extends Korisnici
         return [
 //            [['id', 'vrsta_id', 'adresa_id', 'gradovi_id'], 'integer'],
             [['id', 'gradovi_id'], 'integer'],
-            [['ime', 'prezime', 'broj', 'telefon', 'vrsta_id', 'adresa_id'], 'safe'],
+            [['ime', 'prezime', 'broj', 'telefon', 'vrsta_id', 'adresa_id', 'fullName'], 'safe'],
         ];
     }
 
@@ -51,6 +52,18 @@ class KorisniciSearch extends Korisnici
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+		
+		$dataProvider->setSort([
+			'attributes' => [
+				'id',
+				'fullName' => [
+					'asc' => ['ime' => SORT_ASC, 'prezime' => SORT_ASC],
+					'desc' => ['ime' => SORT_DESC, 'prezime' => SORT_DESC],
+					'label' => 'Full Name',
+					'default' => SORT_ASC
+					]
+				]
+		]);
 
         $this->load($params);
 
