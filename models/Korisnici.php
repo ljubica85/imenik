@@ -15,6 +15,7 @@ use Yii;
  * @property string $broj
  * @property int $gradovi_id
  * @property string $telefon
+ * @property string $fullName
  *
  * @property Vrsta $vrsta
  * @property Adresa $adresa
@@ -60,6 +61,7 @@ class Korisnici extends \yii\db\ActiveRecord
             'broj' => 'Broj',
             'gradovi_id' => 'Gradovi ID',
             'telefon' => 'Telefon',
+			'fullName' => 'Full Name',
         ];
     }
 
@@ -86,4 +88,12 @@ class Korisnici extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Gradovi::className(), ['id' => 'gradovi_id']);
     }
+	
+	 /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFullName()
+	{
+		return $this->ime . ' ' . $this->prezime;
+	}
 }
