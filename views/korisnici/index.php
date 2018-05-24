@@ -42,7 +42,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'label' => 'Adresa',
             'attribute'=>'adresa',                          
             ],
-	    'broj',
+			'broj',
+			[
+            'label' => 'Grad',
+            'attribute'=>'gradovi',                          
+            ],
             //'gradovi_id',
             //'telefon',
 
