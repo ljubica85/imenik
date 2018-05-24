@@ -26,6 +26,11 @@ class Korisnici extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    
+    public $fullName;
+    public $vrsta;
+    public $adresa;
+    
     public static function tableName()
     {
         return 'korisnici';
@@ -40,6 +45,7 @@ class Korisnici extends \yii\db\ActiveRecord
             [['ime', 'prezime', 'vrsta_id', 'adresa_id', 'broj', 'gradovi_id', 'telefon'], 'required'],
             [['vrsta_id', 'adresa_id', 'gradovi_id'], 'integer'],
             [['ime', 'prezime'], 'string', 'max' => 50],
+            [['vrsta', 'adresa', 'fullName'], 'safe'],            
             [['broj', 'telefon'], 'string', 'max' => 20],
             [['vrsta_id'], 'exist', 'skipOnError' => true, 'targetClass' => Vrsta::className(), 'targetAttribute' => ['vrsta_id' => 'id']],
             [['adresa_id'], 'exist', 'skipOnError' => true, 'targetClass' => Adresa::className(), 'targetAttribute' => ['adresa_id' => 'id']],
@@ -92,8 +98,8 @@ class Korisnici extends \yii\db\ActiveRecord
 	 /**
      * @return \yii\db\ActiveQuery
      */
-    public function getFullName()
-	{
-		return $this->ime . ' ' . $this->prezime;
-	}
+//    public function getFullName()
+//	{
+//		return $this->ime . ' ' . $this->prezime;
+//	}
 }

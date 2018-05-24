@@ -12,7 +12,7 @@ use frontend\models\Korisnici;
  */
 class KorisniciSearch extends Korisnici
 {
-	public $fullName;
+	
     /**
      * @inheritdoc
      */
@@ -21,7 +21,8 @@ class KorisniciSearch extends Korisnici
         return [
 //            [['id', 'vrsta_id', 'adresa_id', 'gradovi_id'], 'integer'],
             [['id', 'gradovi_id'], 'integer'],
-            [['ime', 'prezime', 'broj', 'telefon', 'vrsta_id', 'adresa_id', 'fullName'], 'safe'],
+            [['ime', 'prezime', 'broj', 'telefon', 'vrsta_id', 'adresa_id'], 'safe'],
+            [['fullName', 'vrsta', 'adresa'], 'safe'],
         ];
     }
 
@@ -43,9 +44,11 @@ class KorisniciSearch extends Korisnici
      */
     public function search($params)
     {
-        $query = Korisnici::find();
-        $query->joinWith('vrsta');
-		$query->joinWith('adresa');
+        $query = Korisnici::find()->select(["k.id as id, concat(k.ime, ' ', k.prezime) as fullName,  
+                                             v.ime as vrsta, a.ime as adresa, k.broj as broj"]);
+        $query->from('korisnici as k');
+        $query->joinWith('vrsta as v');
+		$query->joinWith('adresa as a');
 
         // add conditions that should always apply here
 
@@ -53,17 +56,15 @@ class KorisniciSearch extends Korisnici
             'query' => $query,
         ]);
 		
-		$dataProvider->setSort([
-			'attributes' => [
-				'id',
-				'fullName' => [
-					'asc' => ['ime' => SORT_ASC, 'prezime' => SORT_ASC],
-					'desc' => ['ime' => SORT_DESC, 'prezime' => SORT_DESC],
-					'label' => 'Full Name',
-					'default' => SORT_ASC
-					]
-				]
-		]);
+        $dataProvider->setSort([
+                'attributes' => [
+                        'id',
+                        'fullName',
+                        'vrsta',
+                        'adresa',
+                        'broj',
+                        ]
+        ]);
 
         $this->load($params);
 
@@ -76,17 +77,12 @@ class KorisniciSearch extends Korisnici
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-//            'vrsta_id' => $this->vrsta_id,
-//            'adresa_id' => $this->adresa_id,
-            'gradovi_id' => $this->gradovi_id,
         ]);
 
-        $query->andFilterWhere(['like', 'ime', $this->ime])
-            ->andFilterWhere(['like', 'prezime', $this->prezime])
-            ->andFilterWhere(['like', 'broj', $this->broj])
-            ->andFilterWhere(['like', 'telefon', $this->telefon])
-            ->andFilterWhere(['like', 'vrsta.ime', $this->vrsta_id])
-			->andFilterWhere(['like', 'adresa.ime', $this->adresa_id]);
+        $query->andFilterWhere(['like', 'concat(k.ime, \' \', k.prezime)', $this->fullName])                
+            ->andFilterWhere(['like', 'broj', $this->broj])            
+            ->andFilterWhere(['like', 'v.ime', $this->vrsta])
+	    ->andFilterWhere(['like', 'a.ime', $this->adresa]);
 
         return $dataProvider;
     }
