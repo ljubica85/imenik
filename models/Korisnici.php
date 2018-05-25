@@ -28,7 +28,6 @@ class Korisnici extends \yii\db\ActiveRecord
      */
     
     public $fullName;
-    public $vrsta;
     public $adresa;
 	public $gradovi;
     
