@@ -28,8 +28,8 @@ class Korisnici extends \yii\db\ActiveRecord
      */
     
     public $fullName;
-    public $vrsta;
     public $adresa;
+	public $gradovi;
     
     public static function tableName()
     {
@@ -45,7 +45,7 @@ class Korisnici extends \yii\db\ActiveRecord
             [['ime', 'prezime', 'vrsta_id', 'adresa_id', 'broj', 'gradovi_id', 'telefon'], 'required'],
             [['vrsta_id', 'adresa_id', 'gradovi_id'], 'integer'],
             [['ime', 'prezime'], 'string', 'max' => 50],
-            [['vrsta', 'adresa', 'fullName'], 'safe'],            
+            [['vrsta', 'adresa', 'gradovi', 'fullName'], 'safe'],            
             [['broj', 'telefon'], 'string', 'max' => 20],
             [['vrsta_id'], 'exist', 'skipOnError' => true, 'targetClass' => Vrsta::className(), 'targetAttribute' => ['vrsta_id' => 'id']],
             [['adresa_id'], 'exist', 'skipOnError' => true, 'targetClass' => Adresa::className(), 'targetAttribute' => ['adresa_id' => 'id']],

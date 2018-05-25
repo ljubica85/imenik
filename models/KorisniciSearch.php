@@ -20,9 +20,9 @@ class KorisniciSearch extends Korisnici
     {
         return [
 //            [['id', 'vrsta_id', 'adresa_id', 'gradovi_id'], 'integer'],
-            [['id', 'gradovi_id'], 'integer'],
-            [['ime', 'prezime', 'broj', 'telefon', 'vrsta_id', 'adresa_id'], 'safe'],
-            [['fullName', 'vrsta', 'adresa'], 'safe'],
+            [['id'], 'integer'],
+            [['ime', 'prezime', 'broj', 'telefon', 'vrsta_id', 'adresa_id', 'gradovi_id'], 'safe'],
+            [['fullName', 'vrsta', 'adresa', 'gradovi'], 'safe'],
         ];
     }
 
@@ -45,10 +45,11 @@ class KorisniciSearch extends Korisnici
     public function search($params)
     {
         $query = Korisnici::find()->select(["k.id as id, concat(k.ime, ' ', k.prezime) as fullName,  
-                                             v.ime as vrsta, a.ime as adresa, k.broj as broj"]);
+                                             concat(v.ime, ' ', a.ime) as adresa, k.broj as broj, g.ime as gradovi"]);
         $query->from('korisnici as k');
         $query->joinWith('vrsta as v');
 		$query->joinWith('adresa as a');
+		$query->joinWith('gradovi as g');
 
         // add conditions that should always apply here
 
@@ -60,9 +61,9 @@ class KorisniciSearch extends Korisnici
                 'attributes' => [
                         'id',
                         'fullName',
-                        'vrsta',
                         'adresa',
                         'broj',
+						'gradovi',
                         ]
         ]);
 
@@ -80,9 +81,9 @@ class KorisniciSearch extends Korisnici
         ]);
 
         $query->andFilterWhere(['like', 'concat(k.ime, \' \', k.prezime)', $this->fullName])                
-            ->andFilterWhere(['like', 'broj', $this->broj])            
-            ->andFilterWhere(['like', 'v.ime', $this->vrsta])
-	    ->andFilterWhere(['like', 'a.ime', $this->adresa]);
+            ->andFilterWhere(['like', 'broj', $this->broj])
+			->andFilterWhere(['like', 'concat(v.ime, \' \', a.ime)', $this->adresa])
+			->andFilterWhere(['like', 'g.ime', $this->gradovi]);
 
         return $dataProvider;
     }

@@ -30,19 +30,23 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'prezime',
             // 'vrsta_id',	    
             [
-	    'label' => 'Full Name',
+			'label' => 'Full Name',
             'attribute'=>'fullName',            
             ],
-            [
-	    'label' => 'Vrsta',
+            /*[
+			'label' => 'Vrsta',
             'attribute'=>'vrsta',            
-            ],
+            ],*/
 	    //'adresa_id',
             [
             'label' => 'Adresa',
             'attribute'=>'adresa',                          
             ],
-	    'broj',
+			'broj',
+			[
+            'label' => 'Grad',
+            'attribute'=>'gradovi',                          
+            ],
             //'gradovi_id',
             //'telefon',
 
