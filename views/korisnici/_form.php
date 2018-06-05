@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use frontend\models\Vrsta;
+use frontend\models\Gradovi;
 use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
@@ -45,7 +46,25 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'broj')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'gradovi_id')->textInput() ?>
+    <?php                     
+        $query = Gradovi::find()->select(["gradovi.id as id, 
+                                            CONCAT(
+                                                gradovi.ime, 
+                                                ''
+                                            ) AS ime"]);                                        
+        $data = ArrayHelper::map($query->asArray()->all(),'id', 'ime');                               
+        echo $form->field($model, 'gradovi_id')->widget(Select2::classname(), [
+            'model' => $model,
+            'data' => $data,            
+            'language' => 'en',
+            'options' => ['placeholder' => 'izaberite grad',                                                   
+            ],
+            'pluginOptions' => [
+                'allowClear' => true,
+                'width' => '300px',                               
+            ],              
+        ])->label('Grad');
+    ?>
 
     <?= $form->field($model, 'telefon')->textInput(['maxlength' => true]) ?>
 

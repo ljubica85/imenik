@@ -25,7 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             // 'ime',
             // 'prezime',
             // 'vrsta_id',	    
@@ -49,6 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             //'gradovi_id',
             //'telefon',
+            'id',			
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
